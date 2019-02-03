@@ -49,6 +49,8 @@ export default class MineBoard extends Vue {
     } else {
       this.$emit('over', false)
     }
+
+    if (this.board.win) { this.$emit('over', true) }
   }
 
   openAround (pos: number) {
@@ -58,6 +60,8 @@ export default class MineBoard extends Vue {
     } else {
       this.$emit('over', false)
     }
+
+    if (this.board.win) { this.$emit('over', true) }
   }
 }
 </script>

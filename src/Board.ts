@@ -123,6 +123,12 @@ class Board {
     return this.cellInfos
   }
 
+  get win (): boolean {
+    return this.cellInfos.every(cell =>
+      cell.hasMine ? cell.state === CellState.FLAGGED : cell.state === CellState.OPEN
+    )
+  }
+
   private coordFrom (pos: number): [number, number] {
     return [pos % this.width, Math.floor(pos / this.width)]
   }

@@ -7,9 +7,10 @@
             v-if="!board"
             :width="width" :height="height"
             @open="realizeGhostBoard"></MineBoardPreview>
-        <MineBoard
+        <MineBoard ref="mineBoard"
             v-if="board" :board="board"
             :width="board.width" :height="board.height"
+            :lose="lose"
             @over="onGameEnd"></MineBoard>
       </div>
     </header>
@@ -34,6 +35,7 @@ export default class App extends Vue {
   board?: Board | null = null;
   width: number = 0;
   height: number = 0;
+  lose: boolean = false;
 
   onChangeBoardSize (size: IBoardSize) {
     console.log('onChangeBoardSize', size)
@@ -43,6 +45,7 @@ export default class App extends Vue {
 
   initBoard (size: IBoardSize) {
     console.log('initBoard(); size: ', size)
+    this.lose = false
 
     // reset board
     this.board = null
@@ -56,6 +59,12 @@ export default class App extends Vue {
 
   onGameEnd (win: boolean, pos: number) {
     console.log(win)
+    if (!win) {
+      this.lose = true
+      this.board.openAllForGameOver();
+
+      ((this.$refs as any).mineBoard as MineBoard).update()
+    }
   }
 }
 </script>

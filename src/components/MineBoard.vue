@@ -1,5 +1,5 @@
 <template>
-  <div class="mine-board" :style="boardStyle">
+  <div class="mine-board" :style="boardStyle" :data-lose="lose? 'lose': ''">
     <BoardCell v-for="i in width * height" :key="i"
                :info="cellInfos[i-1]"
                @toggle="toggleState(i-1)"
@@ -32,6 +32,9 @@ export default class MineBoard extends Vue {
   @Prop()
   board!: Board;
 
+  @Prop()
+  lose!: boolean;
+
   cellInfos: ICellInfo[] = this.board.cellInfos;
 
   @Watch('cellInfos')
@@ -63,6 +66,10 @@ export default class MineBoard extends Vue {
     } else {
       this.$emit('over', false)
     }
+  }
+
+  update () {
+    this.cellInfos = this.board.cellInfos
   }
 }
 </script>

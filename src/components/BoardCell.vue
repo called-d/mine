@@ -90,4 +90,8 @@ export default class BoardCell extends Vue {
   }
   [data-state="close"] {
   }
+
+  [data-lose="lose"] .cell {
+    background-color: #FAA;
+  }
 </style>

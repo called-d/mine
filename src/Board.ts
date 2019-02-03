@@ -63,6 +63,10 @@ class Board {
       .every(cell => !cell.hasMine)
   }
 
+  public openAllForGameOver () {
+    this.cellStates.fill(CellState.OPEN)
+  }
+
   private openCells (x: number, y: number) {
     const cells = wrap2D(this.cells, this.width, this.height)
     const states = wrap2D(this.cellStates, this.width, this.height)

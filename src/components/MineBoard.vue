@@ -4,6 +4,7 @@
                :info="cellInfos[i-1]"
                @toggle="toggleState(i-1)"
                @open="openCell(i-1)"
+               @openaround="openAround(i-1)"
                @click.right.prevent>
 
     </BoardCell>
@@ -45,6 +46,15 @@ export default class MineBoard extends Vue {
     console.log(pos)
     if (this.board.tryToOpen(pos)) {
       this.cellInfos = this.board.open(pos)
+    } else {
+      this.$emit('over', false)
+    }
+  }
+
+  openAround (pos: number) {
+    if (!this.board.shouldOpenAround(pos)) { return }
+    if (this.board.tryToOpenAround(pos)) {
+      this.cellInfos = this.board.openAround(pos)
     } else {
       this.$emit('over', false)
     }

@@ -1,5 +1,8 @@
 <template>
-  <div class="cell" :data-state="state" @click.left="onClick" @click.right.prevent="$emit('toggle')">
+  <div class="cell" :data-state="state"
+       @click.left="onClick"
+       @click.right.prevent="$emit('toggle')"
+       @dblclick="$emit('openaround')">
     <div class="char" v-if="state === 'open'">
       <span v-if="hasMine">×</span>
       <span v-else-if="mineCount">{{ mineCount }}</span>

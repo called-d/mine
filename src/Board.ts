@@ -41,9 +41,26 @@ class Board {
       this.cells = this.generate(pos)
     }
 
-    console.log(`open(): ${pos % this.width} ${Math.floor(pos / this.width)}`)
-    this.openCells(pos % this.width, Math.floor(pos / this.width))
+    this.openCells(...this.coordFrom(pos))
     return this.cellInfos
+  }
+
+  public shouldOpenAround (pos: number): boolean {
+    const [x, y] = this.coordFrom(pos)
+    const cells = wrap2D(this.cellInfos, this.width, this.height)
+    const neighbors = this.neighbors8.map(o => cells.get(x + o[0], y + o[1]))
+
+    const flagCount = neighbors.filter(cell => cell && cell.state === CellState.FLAGGED).length
+    return cells.get(x, y)!.mineCount === flagCount
+  }
+
+  public tryToOpenAround (pos: number): boolean {
+    const [x, y] = this.coordFrom(pos)
+    const cells = wrap2D(this.cellInfos, this.width, this.height)
+    const neighbors = this.neighbors8.map(o => cells.get(x + o[0], y + o[1]))
+    return (neighbors.filter(Boolean) as ICellInfo[])
+      .filter(cell => cell.state !== CellState.FLAGGED)
+      .every(cell => !cell.hasMine)
   }
 
   private openCells (x: number, y: number) {
@@ -63,6 +80,15 @@ class Board {
     if (!cell.mineCount) {
       nextCoords.forEach(c => this.openCells(c[0], c[1]))
     }
+  }
+
+  public openAround (pos: number) {
+    const [x, y] = this.coordFrom(pos)
+    const cells = wrap2D(this.cellInfos, this.width, this.height)
+    const neighbors = this.neighbors8.map(o => [x + o[0], y + o[1]])
+    neighbors.filter(([x, y]) => cells.get(x, y))
+      .forEach(([x, y]) => this.openCells(x, y))
+    return this.cellInfos
   }
 
   private generate (openPos: number): Cell[] {
@@ -95,6 +121,10 @@ class Board {
       default: break
     }
     return this.cellInfos
+  }
+
+  private coordFrom (pos: number): [number, number] {
+    return [pos % this.width, Math.floor(pos / this.width)]
   }
 }
 

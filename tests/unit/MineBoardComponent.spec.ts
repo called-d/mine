@@ -34,11 +34,21 @@ describe('MineBoard.vue', () => {
     })
   })
 
-  it('open cell when cell clicked', () => {
+  describe('open cell', () => {
+    const board = new Board({ width, height })
     const wrapper = mount(MineBoard, {
       propsData: { width, height, board }
     })
-    wrapper.find(BoardCell).trigger('click')
-    expect((wrapper.find(BoardCell).vm as any).state).toBe(CellState.OPEN)
+
+    it('open cell when cell clicked', () => {
+      wrapper.find(BoardCell).trigger('click')
+      expect((wrapper.find(BoardCell).vm as any).state).toBe(CellState.OPEN)
+    })
+
+    it('open around cell', () => {
+      const cell = wrapper.find(BoardCell)
+      cell.trigger('dblclick')
+      expect(cell.emitted().openaround).toBeTruthy()
+    })
   })
 })

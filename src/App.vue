@@ -14,6 +14,18 @@
           :lose="lose"
           @over="onGameEnd"></MineBoard>
     </div>
+    <footer>
+      <a class="open-thanks" @click="$refs.thanks.showModal()">すぺしゃるさんくす</a>
+      <dialog ref="thanks">
+        <nav><a class="close" @click="$refs.thanks.close()">x</a></nav>
+        <dl>
+          <dt>フォント</dt>
+          <dd><a href="http://www17.plala.or.jp/xxxxxxx/00ff/">ゼロピクセルフリーフォント</a></dd>
+          <dt>フレームワーク</dt>
+          <dd>Vue.js</dd>
+        </dl>
+      </dialog>
+    </footer>
   </div>
 </template>
 
@@ -69,17 +81,32 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
+#app {
+  margin-top: 2em;
+  text-align: center;
+}
 .board-wrapper {
   overflow: scroll;
   margin-top: 2em;
 }
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+footer {
+  margin-top: 1em;
+  font-family: x8y12pxTheStrongGamer, sans-serif;
+  display: inline-block;
+  text-align: left;
+}
+dt {
+  color: gray;
+}
+dt:after {
+  content: ':';
+}
+footer a.open-thanks:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+footer a.close {
+  cursor: pointer
 }
 </style>

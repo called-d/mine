@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import BoardCell from '@/components/BoardCell.vue'
 import { ICellInfo } from '@/Cell'
 import Board from '@/Board'
@@ -34,6 +34,11 @@ export default class MineBoard extends Vue {
 
   cellInfos: ICellInfo[] = this.board.cellInfos;
 
+  @Watch('cellInfos')
+  emitWin () {
+    if (this.board.win) { this.$emit('over', true) }
+  }
+
   get boardStyle (): string {
     return `grid-template-columns: repeat(${this.width}, 1fr)`
   }
@@ -49,8 +54,6 @@ export default class MineBoard extends Vue {
     } else {
       this.$emit('over', false)
     }
-
-    if (this.board.win) { this.$emit('over', true) }
   }
 
   openAround (pos: number) {
@@ -60,8 +63,6 @@ export default class MineBoard extends Vue {
     } else {
       this.$emit('over', false)
     }
-
-    if (this.board.win) { this.$emit('over', true) }
   }
 }
 </script>

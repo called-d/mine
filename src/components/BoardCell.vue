@@ -31,6 +31,7 @@ export default class BoardCell extends Vue {
   onClick () {
     switch (this.state) {
       case CellState.OPEN: return
+      case CellState.FLAGGED: return
       default:
         this.$emit('open')
     }

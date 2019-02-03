@@ -16,14 +16,22 @@ describe('MineBoard.vue', () => {
     expect((wrapper.vm.$children[0].constructor as any).options.name).toEqual('BoardCell')
   })
 
-  it('flag cell when cell right-clicked', () => {
+  describe('flagged cell', () => {
     const wrapper = mount(MineBoard, {
       propsData: { width, height, board }
     })
     const cells = wrapper.findAll(BoardCell)
     const cell = cells.at(2)
-    cell.trigger('contextmenu') // click.right
-    expect((cell.vm as any).state).toBe(CellState.FLAGGED)
+
+    it('flag cell when cell right-clicked', () => {
+      cell.trigger('contextmenu') // click.right
+      expect((cell.vm as any).state).toBe(CellState.FLAGGED)
+    })
+
+    it('don\'t open when flagged cell clicked', () => {
+      cell.trigger('click')
+      expect(cell.emitted().open).toBeFalsy()
+    })
   })
 
   it('open cell when cell clicked', () => {

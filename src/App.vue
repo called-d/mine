@@ -61,7 +61,7 @@ export default class App extends Vue {
     console.log(win)
     if (!win) {
       this.lose = true
-      this.board.openAllForGameOver();
+      this.board!.openAllForGameOver();
 
       ((this.$refs as any).mineBoard as MineBoard).update()
     }

@@ -2,18 +2,18 @@
   <div id="app">
     <header>
       <ConfigBar @change="onChangeBoardSize" @start="initBoard"></ConfigBar>
-      <div class="board-wrapper">
-        <MineBoardPreview
-            v-if="!board"
-            :width="width" :height="height"
-            @open="realizeGhostBoard"></MineBoardPreview>
-        <MineBoard ref="mineBoard"
-            v-if="board" :board="board"
-            :width="board.width" :height="board.height"
-            :lose="lose"
-            @over="onGameEnd"></MineBoard>
-      </div>
     </header>
+    <div class="board-wrapper">
+      <MineBoardPreview
+          v-if="!board"
+          :width="width" :height="height"
+          @open="realizeGhostBoard"></MineBoardPreview>
+      <MineBoard ref="mineBoard"
+          v-if="board" :board="board"
+          :width="board.width" :height="board.height"
+          :lose="lose"
+          @over="onGameEnd"></MineBoard>
+    </div>
   </div>
 </template>
 

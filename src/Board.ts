@@ -22,7 +22,7 @@ class Board {
   private readonly cellStates: CellState[];
   private cells!: Cell[];
   private readonly neighbors8 = cross([-1, 0, 1], [-1, 0, 1])
-    .filter((c: number[]) => c[0] || c[1]);
+    .filter(([x, y]) => x || y);
 
   constructor (size: IBoardSize) {
     this.width = size.width
@@ -48,7 +48,7 @@ class Board {
   public shouldOpenAround (pos: number): boolean {
     const [x, y] = this.coordFrom(pos)
     const cells = wrap2D(this.cellInfos, this.width, this.height)
-    const neighbors = this.neighbors8.map(o => cells.get(x + o[0], y + o[1]))
+    const neighbors = this.neighbors8.map(([ox, oy]) => cells.get(x + ox, y + oy))
 
     const flagCount = neighbors.filter(cell => cell && cell.state === CellState.FLAGGED).length
     return cells.get(x, y)!.mineCount === flagCount
@@ -57,7 +57,7 @@ class Board {
   public tryToOpenAround (pos: number): boolean {
     const [x, y] = this.coordFrom(pos)
     const cells = wrap2D(this.cellInfos, this.width, this.height)
-    const neighbors = this.neighbors8.map(o => cells.get(x + o[0], y + o[1]))
+    const neighbors = this.neighbors8.map(([ox, oy]) => cells.get(x + ox, y + oy))
     return (neighbors.filter(Boolean) as ICellInfo[])
       .filter(cell => cell.state !== CellState.FLAGGED)
       .every(cell => !cell.hasMine)
@@ -66,7 +66,7 @@ class Board {
   private openCells (x: number, y: number) {
     const cells = wrap2D(this.cells, this.width, this.height)
     const states = wrap2D(this.cellStates, this.width, this.height)
-    const nextCoords = this.neighbors8.map(o => [x + o[0], y + o[1]])
+    const nextCoords = this.neighbors8.map(([ox, oy]) => [x + ox, y + oy] as [number, number])
 
     const cell = cells.get(x, y)
     const state = states.get(x, y)
@@ -78,14 +78,14 @@ class Board {
     console.log(`openCells: ${x} ${y}`)
     states.set(x, y, CellState.OPEN)
     if (!cell.mineCount) {
-      nextCoords.forEach(c => this.openCells(c[0], c[1]))
+      nextCoords.forEach(coord => this.openCells(...coord))
     }
   }
 
   public openAround (pos: number) {
     const [x, y] = this.coordFrom(pos)
     const cells = wrap2D(this.cellInfos, this.width, this.height)
-    const neighbors = this.neighbors8.map(o => [x + o[0], y + o[1]])
+    const neighbors = this.neighbors8.map(([ox, oy]) => [x + ox, y + oy])
     neighbors.filter(([x, y]) => cells.get(x, y))
       .forEach(([x, y]) => this.openCells(x, y))
     return this.cellInfos
@@ -106,7 +106,7 @@ class Board {
     return coords.map((c: number[]) => {
       const [y, x] = c
       const nextMines = this.neighbors8
-        .filter(o => hasMine2d.get(x + o[0], y + o[1]))
+        .filter(([ox, oy]) => hasMine2d.get(x + ox, y + oy))
         .length
       return new Cell(hasMine2d.get(x, y)!, nextMines)
     })

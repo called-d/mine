@@ -27,10 +27,10 @@ function wrap2D<T> (src: T[], w: number, h: number): IArray2DWrapper<T> {
   }
 }
 
-function cross<T> (a0: T[], a1: T[]): T[][] {
+function cross<T> (a0: T[], a1: T[]): [T, T][] {
   // Array.flat is still proposal
   // return a0.map(v0 => a1.map(v1 => [v0, v1])).flat(1)
-  const a: T[][] = []
+  const a: [T, T][] = []
   a0.forEach(v0 => a1.forEach(v1 => a.push([v0, v1])))
   return a
 }

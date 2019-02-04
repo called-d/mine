@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/mine/js/chunk-vendors.543a472f.js"
   },
   {
-    "revision": "1302ad8b8dfe43e0d6cb",
-    "url": "/mine/js/app.375e3e6f.js"
+    "revision": "592c1a4d7cef397783aa",
+    "url": "/mine/js/app.6cbc4586.js"
   },
   {
-    "revision": "256c78a6568af14a67dc461400ebe572",
+    "revision": "8294626d97ce8f273a9832ae54c6462d",
     "url": "/mine/index.html"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/mine/fonts/x8y12pxTheStrongGamer.woff"
   },
   {
-    "revision": "1302ad8b8dfe43e0d6cb",
-    "url": "/mine/css/app.1c9deb30.css"
+    "revision": "592c1a4d7cef397783aa",
+    "url": "/mine/css/app.6aeae1d5.css"
   }
 ];

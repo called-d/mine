@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/mine/robots.txt"
   },
   {
-    "revision": "1b6a681871e84d2a4ed1",
-    "url": "/mine/js/chunk-vendors.e73c2e21.js"
+    "revision": "e840c2cb8b77d8da3ca6",
+    "url": "/mine/js/chunk-vendors.543a472f.js"
   },
   {
-    "revision": "8732a5219636eadde276",
-    "url": "/mine/js/app.3f12b4c2.js"
+    "revision": "1302ad8b8dfe43e0d6cb",
+    "url": "/mine/js/app.375e3e6f.js"
   },
   {
-    "revision": "48fe0cfe72893744ffc11e8fed95f421",
+    "revision": "256c78a6568af14a67dc461400ebe572",
     "url": "/mine/index.html"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/mine/fonts/x8y12pxTheStrongGamer.woff"
   },
   {
-    "revision": "8732a5219636eadde276",
-    "url": "/mine/css/app.5da96c5a.css"
+    "revision": "1302ad8b8dfe43e0d6cb",
+    "url": "/mine/css/app.1c9deb30.css"
   }
 ];
